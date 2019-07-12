@@ -1,117 +1,125 @@
+buildscript {
+  repositories {
+    jcenter()
+    mavenCentral()
+  }
+}
+
 plugins {
-    id 'groovy'
-    id 'jacoco'
-    id 'project-report'
-    id 'ru.vyarus.java-lib' version '1.1.2'
-    id 'ru.vyarus.github-info' version '1.1.0'
-    id 'ru.vyarus.animalsniffer' version '1.4.6'
-    id 'ru.vyarus.quality' version '3.3.0'
-    id 'com.jfrog.bintray' version '1.8.4'
-    id 'net.researchgate.release' version '2.7.0'
-    id 'com.github.ben-manes.versions' version '0.20.0'
-    id 'ru.vyarus.mkdocs' version '1.1.0'
+  id 'groovy'
+  id 'jacoco'
+  id 'project-report'
+  id 'ru.vyarus.java-lib' version '1.1.2'
+  id 'ru.vyarus.github-info' version '1.1.0'
+  id 'ru.vyarus.animalsniffer' version '1.4.6'
+  id 'ru.vyarus.quality' version '3.3.0'
+  id 'com.jfrog.bintray' version '1.8.4'
+  id 'net.researchgate.release' version '2.7.0'
+  id 'com.github.ben-manes.versions' version '0.20.0'
+  id 'ru.vyarus.mkdocs' version '1.1.0'
+  id 'biz.aQute.bnd.builder' version "4.2.0"
 }
 
 sourceCompatibility = 1.6
 
 wrapper {
-    gradleVersion = '4.8.1'
+  gradleVersion = '4.8.1'
 }
 
 ext {
-    orient = '3.0.11'
-    guice = '4.2.2'
+  orient = '3.0.11'
+  guice = '4.2.2'
 }
 
 repositories { jcenter(); mavenCentral(); mavenLocal() }
 dependencies {
-    signature 'org.codehaus.mojo.signature:java16:1.1@signature'
+  signature 'org.codehaus.mojo.signature:java16:1.1@signature'
 
-    provided 'com.github.spotbugs:spotbugs-annotations:3.1.2'
+  provided 'com.github.spotbugs:spotbugs-annotations:3.1.2'
 
-    compile 'org.slf4j:slf4j-api:1.7.25'
+  compile 'org.slf4j:slf4j-api:1.7.25'
 
-    compile 'ru.vyarus:generics-resolver:3.0.0'
-    compile 'ru.vyarus:guice-ext-annotations:1.3.0'
-    compile 'org.javassist:javassist:3.23.1-GA'
-    compile "com.google.inject:guice:$guice"
-    compile "com.google.inject.extensions:guice-persist:$guice"
-    compile "com.orientechnologies:orientdb-core:$orient"
-    provided "com.orientechnologies:orientdb-object:$orient"
-    provided ("com.orientechnologies:orientdb-graphdb:$orient")
-    provided ("com.orientechnologies:orientdb-lucene:$orient")
+  compile 'ru.vyarus:generics-resolver:3.0.0'
+  compile 'ru.vyarus:guice-ext-annotations:1.3.0'
+  compile 'org.javassist:javassist:3.23.1-GA'
+  compile "com.google.inject:guice:$guice"
+  compile "com.google.inject.extensions:guice-persist:$guice"
+  compile "com.orientechnologies:orientdb-core:$orient"
+  provided "com.orientechnologies:orientdb-object:$orient"
+  provided("com.orientechnologies:orientdb-graphdb:$orient")
+  provided("com.orientechnologies:orientdb-lucene:$orient")
 
-    testCompile 'ch.qos.logback:logback-classic:1.2.3'
-    testCompile 'org.slf4j:jul-to-slf4j:1.7.25'
-    testCompile 'org.spockframework:spock-guice:1.2-groovy-2.5'
-    testCompile 'ru.vyarus:guice-validator:1.2.0'
-    testCompile 'org.hibernate:hibernate-validator:5.2.0.Final'
-    testCompile 'org.glassfish.web:javax.el:2.2.6'
-    testCompile "com.orientechnologies:orientdb-tools:$orient"
+  testCompile 'ch.qos.logback:logback-classic:1.2.3'
+  testCompile 'org.slf4j:jul-to-slf4j:1.7.25'
+  testCompile 'org.spockframework:spock-guice:1.2-groovy-2.5'
+  testCompile 'ru.vyarus:guice-validator:1.2.0'
+  testCompile 'org.hibernate:hibernate-validator:5.2.0.Final'
+  testCompile 'org.glassfish.web:javax.el:2.2.6'
+  testCompile "com.orientechnologies:orientdb-tools:$orient"
 }
 
 group = 'ru.vyarus'
 description = 'Guice integration for OrientDB'
 
 github {
-    user = 'xvik'
-    license = 'MIT'
+  user = 'xvik'
+  license = 'MIT'
 }
 
 mkdocs.publish {
-    docPath = '3.3.2'
-    rootRedirect = true
+  docPath = '3.3.2'
+  rootRedirect = true
 }
 
 pom {
-    developers {
-        developer {
-            id 'xvik'
-            name 'Vyacheslav Rusakov'
-            email 'vyarus@gmail.com'
-        }
+  developers {
+    developer {
+      id 'xvik'
+      name 'Vyacheslav Rusakov'
+      email 'vyarus@gmail.com'
     }
+  }
 }
 
 bintray {
-    user = findProperty('bintrayUser')
-    key = findProperty('bintrayKey')
-    publications = ['maven']
-    dryRun = false
-    publish = true
-    pkg {
-        repo = 'xvik'
-        name = project.name
-        desc = project.description
-        labels = ['guice', 'guice-persist', 'orientdb']
-        publicDownloadNumbers = true
-        version {
-            gpg {
-                sign = true
-                passphrase = findProperty('gpgPassphrase')
-            }
-            mavenCentralSync {
-                sync = true
-                user = findProperty('sonatypeUser')
-                password = findProperty('sonatypePassword')
-            }
-        }
+  user = findProperty('bintrayUser')
+  key = findProperty('bintrayKey')
+  publications = ['maven']
+  dryRun = false
+  publish = true
+  pkg {
+    repo = 'xvik'
+    name = project.name
+    desc = project.description
+    labels = ['guice', 'guice-persist', 'orientdb']
+    publicDownloadNumbers = true
+    version {
+      gpg {
+        sign = true
+        passphrase = findProperty('gpgPassphrase')
+      }
+      mavenCentralSync {
+        sync = true
+        user = findProperty('sonatypeUser')
+        password = findProperty('sonatypePassword')
+      }
     }
+  }
 }
 
 afterReleaseBuild {
-    dependsOn = [bintrayUpload]
-    doLast {
-        logger.warn "RELEASED $project.group:$project.name:$project.version"
-    }
+  dependsOn = [bintrayUpload]
+  doLast {
+    logger.warn "RELEASED $project.group:$project.name:$project.version"
+  }
 }
 
 test {
-    testLogging {
-        events 'skipped', 'failed', 'standard_error'
-        exceptionFormat 'full'
-    }
-    maxHeapSize = '512m'
+  testLogging {
+    events 'skipped', 'failed', 'standard_error'
+    exceptionFormat 'full'
+  }
+  maxHeapSize = '512m'
 }
 
 dependencyUpdates.revision = 'release'
@@ -119,8 +127,23 @@ jacocoTestReport.reports.xml.enabled = true
 
 
 task showDependenciesTree(dependsOn: 'htmlDependencyReport', group: 'help', description:
-        'Generates dependencies tree report and opens it in browser') {
-    doLast {
-        java.awt.Desktop.getDesktop().open(file('build/reports/project/dependencies/root.html'))
-    }
+    'Generates dependencies tree report and opens it in browser') {
+  doLast {
+    java.awt.Desktop.getDesktop().open(file('build/reports/project/dependencies/root.html'))
+  }
 }
+
+jar {
+  bnd """
+    Export-Package: \\
+      ru.vyarus.guice.persist.orient.*
+    
+    Import-Package: \\
+      javax.annotation.*;version="0", \\
+      org.apache.lucene.analysis.*;resolution:="optional", \\
+      ru.vyarus.guice.ext.core.generator.anchor.*;resolution:="optional", \\
+      ru.vyarus.java.generics.resolver.*;resolution:="optional", \\
+      *
+  """
+}
+
