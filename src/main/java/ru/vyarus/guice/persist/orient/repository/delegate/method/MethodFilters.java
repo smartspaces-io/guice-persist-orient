@@ -30,6 +30,10 @@ public final class MethodFilters {
                 new Predicate<MatchedMethod>() {
                     @Override
                     public boolean apply(@Nonnull final MatchedMethod input) {
+                        return test(input);
+                    }
+                    @Override
+                    public boolean test(@Nonnull final MatchedMethod input) {
                         return input.method.getName().equals(method);
                     }
                 });
@@ -86,6 +90,10 @@ public final class MethodFilters {
                 new Predicate<MatchedMethod>() {
                     @Override
                     public boolean apply(@Nonnull final MatchedMethod input) {
+                        return test(input);
+                    }
+                    @Override
+                    public boolean test(@Nonnull final MatchedMethod input) {
                         return input.extended;
                     }
                 });

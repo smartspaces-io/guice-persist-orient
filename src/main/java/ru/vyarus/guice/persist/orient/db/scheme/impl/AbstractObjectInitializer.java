@@ -68,6 +68,10 @@ public abstract class AbstractObjectInitializer implements SchemeInitializer {
         final Predicate<Class<?>> predicate = new Predicate<Class<?>>() {
             @Override
             public boolean apply(final Class<?> input) {
+                return test(input);
+            }
+            @Override
+            public boolean test(final Class<?> input) {
                 return classMatcher.matches(input);
             }
         };

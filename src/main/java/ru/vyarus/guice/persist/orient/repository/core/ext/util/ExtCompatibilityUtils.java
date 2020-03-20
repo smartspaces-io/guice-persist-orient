@@ -106,6 +106,11 @@ public final class ExtCompatibilityUtils {
         return Lists.newArrayList(Iterables.filter(extensions, new Predicate<AmendExecutionExtension>() {
             @Override
             public boolean apply(@Nonnull final AmendExecutionExtension ext) {
+		return test(ext);
+	    }
+		
+            @Override
+            public boolean test(@Nonnull final AmendExecutionExtension ext) {
                 final Class<?> rawExtType = RepositoryUtils.resolveRepositoryClass(ext);
                 final boolean compatible = supportedExtension.isAssignableFrom(rawExtType);
                 if (!compatible) {
